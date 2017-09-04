@@ -1,0 +1,69 @@
+在MAP和list等集合在删除元素时，不能使用除迭代器以外的迭代删除！以下方法为测试通过的方法
+
+ 方法一：
+ List<GateWayInfoExcelContent> listBooks=null;
+	//将非智能网关踢掉	
+		for (int i = 0; i < listBooks.size(); i++) {
+			
+			if(((GateWayInfoExcelContent) listBooks.get(i)).getIsIntelligentGateway().toUpperCase().equals("Y")){				
+				listBooksnew.add(listBooks.get(i));		
+			}
+			else{
+				logger.info("开始踢掉非智能网关"+((GateWayInfoExcelContent) listBooks.get(i)).getGatewayInfoSerialnumber());			
+			}	
+			
+		}
+		listBooks.clear();
+		listBooks.addAll(listBooksnew);
+
+
+
+方法二： 用迭代器的方法进行删除
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class TestList {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		List<String>  list = new ArrayList<String>();
+        list.add("1");
+        list.add("11");
+        list.add("111");
+       // list.add("234");
+        Iterator<String> it = list.iterator();
+        while(it.hasNext()){
+        	if(it.next().contains("1"))	{
+        		it.remove();
+        	}    	
+        }
+             
+        if(list.size()==0){        	
+        	System.out.println("删除完毕");
+        	
+        }
+        else{
+        	System.out.println("删除失败！");
+        	for(int i=0;i<list.size();i++){        		
+        		System.out.println("未删除的对象"+list.get(i));
+        	}
+        	
+        }
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
